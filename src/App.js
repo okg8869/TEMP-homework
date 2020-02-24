@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import UserInput from './Component/UserInput'
+import UserOutput from './Component/UserOutput'
+import Validation from './Component/Validation'
+
+
+class App extends Component {
+  state = {
+    nameList: [
+      {name: 'Bobby'},
+      {name: 'Toby'},
+      {name: 'Egwayne'}
+    ]
+  }
+
+  changeNameHandler = () => {
+    this.setState( {
+      nameList: [
+        {name: 'Bobby'},
+        {name: 'Toby'},
+        {name: 'HOLYSHITANEWNAMEHERE!!!'} 
+      ]
+    } )
+  }
+
+  onChangeHandler = (event) => {
+    this.setState( {
+      nameList: [
+        {name: 'Bobby'},
+        {name: event.target.value},
+        {name: 'Egwayne'} 
+      ]
+    } )
+  }
+
+  onChangeLengthHandler = (event) => {
+
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <UserInput changed={this.onChangeHandler} name={this.state.nameList[1].name}></UserInput>
+        <button onClick={this.changeNameHandler}>Switch Name</button>
+        <UserOutput name='WhoCares'></UserOutput>
+        <UserOutput name={this.state.nameList[1].name}></UserOutput>
+        <UserOutput name={this.state.nameList[2].name}></UserOutput>
+
+        <Validation></Validation>
+      </div>
+    );
+  }
 }
 
 export default App;
